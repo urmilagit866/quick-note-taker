@@ -6,5 +6,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
     saveAs: (text)=> ipcRenderer.invoke('save-as', text),
     deleteNote: () => ipcRenderer.invoke('delete-note'),
     newNote: () => ipcRenderer.invoke('new-note'),
-    openFile: () => ipcRenderer.invoke('open-file')
+    openFile: () => ipcRenderer.invoke('open-file'),
+    onMenuAction: (channel, callback) => ipcRenderer.on(channel, callback) //new
 });
