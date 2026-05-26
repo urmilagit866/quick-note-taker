@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const {
   app,
   BrowserWindow,
@@ -7,9 +6,7 @@ const {
   Menu,
   Tray
 } = require('electron');
-=======
-const { app, BrowserWindow, ipcMain, dialog, Menu } = require('electron');
->>>>>>> 348ee9af34141989cd475bf0528e3a0e34163f36
+
 const path = require('node:path');
 const fs = require('node:fs');
 const notesFilePath = path.join(app.getPath('userData'), 'notes.json');
@@ -27,14 +24,6 @@ function createWindow() {
       nodeIntegration: false
     }
   });
-<<<<<<< HEAD
-  // Load app
-=======
-  win.on('close', (event) => {
-    event.preventDefault();
-  });
-
->>>>>>> 348ee9af34141989cd475bf0528e3a0e34163f36
   win.loadFile('index.html');
 
   // Hide window instead of closing
@@ -53,51 +42,50 @@ app.whenReady().then(() => {
   // NEW: System Tray
   let tray = null;
 
-<<<<<<< HEAD
   // =========================
   // App Menu
   // =========================
   const menuTemplate = [{
     label: 'File',
     submenu: [{
-        label: 'New Note',
-        accelerator: 'CmdOrCtrl+N',
-        click: () => {
-          win.webContents.send('menu-new-note');
-        }
-      },
-      {
-        label: 'Open File',
-        accelerator: 'CmdOrCtrl+O',
-        click: () => {
-          win.webContents.send('menu-open-file');
-        }
-      },
-      {
-        label: 'Save',
-        accelerator: 'CmdOrCtrl+S',
-        click: () => {
-          win.webContents.send('menu-save');
-        }
-      },
-      {
-        label: 'Save As',
-        accelerator: 'CmdOrCtrl+Shift+S',
-        click: () => {
-          win.webContents.send('menu-save-as');
-        }
-      },
-      {
-        type: 'separator'
-      },
-      {
-        label: 'Quit',
-        accelerator: 'CmdOrCtrl+Q',
-        click: () => {
-          app.isQuiting = true;
-          app.quit();
-        }
+      label: 'New Note',
+      accelerator: 'CmdOrCtrl+N',
+      click: () => {
+        win.webContents.send('menu-new-note');
       }
+    },
+    {
+      label: 'Open File',
+      accelerator: 'CmdOrCtrl+O',
+      click: () => {
+        win.webContents.send('menu-open-file');
+      }
+    },
+    {
+      label: 'Save',
+      accelerator: 'CmdOrCtrl+S',
+      click: () => {
+        win.webContents.send('menu-save');
+      }
+    },
+    {
+      label: 'Save As',
+      accelerator: 'CmdOrCtrl+Shift+S',
+      click: () => {
+        win.webContents.send('menu-save-as');
+      }
+    },
+    {
+      type: 'separator'
+    },
+    {
+      label: 'Quit',
+      accelerator: 'CmdOrCtrl+Q',
+      click: () => {
+        app.isQuiting = true;
+        app.quit();
+      }
+    }
     ]
   }];
 
@@ -110,52 +98,28 @@ app.whenReady().then(() => {
   tray = new Tray(path.join(__dirname, 'icon.png'));
 
   const trayMenu = Menu.buildFromTemplate([{
-      label: 'Show App',
-      click: () => {
-        win.show();
-=======
-
-
-  // ... menu setup code ...
-
-  // Create tray icon
-  tray = new Tray(path.join(__dirname, 'icon.png'));
-
-  // Tray context menu
-  const trayMenu = Menu.buildFromTemplate([
-    {
-      label: 'Show App',
-      click: () => {
-        BrowserWindow.getAllWindows()[0].show();
->>>>>>> 348ee9af34141989cd475bf0528e3a0e34163f36
-      }
-    },
-    {
-      label: 'Quit',
-<<<<<<< HEAD
-      click: () => {
-        app.isQuiting = true;
-        app.quit();
-      }
-=======
-      click: () => app.quit()
->>>>>>> 348ee9af34141989cd475bf0528e3a0e34163f36
+    label: 'Show App',
+    click: () => {
+      win.show();
     }
+  },
+  {
+    label: 'Quit',
+
+    click: () => {
+      app.isQuiting = true;
+      app.quit();
+    }
+  }
   ]);
 
   tray.setToolTip('Quick Note Taker');
   tray.setContextMenu(trayMenu);
 
-<<<<<<< HEAD
-  // Double click tray icon
-  tray.on('double-click', () => {
-    if (win.isVisible()) {
-=======
   //new:double click
   tray.on('double-click', () => {
     const win = BrowserWindow.getAllWindows()[0];
     if (win.isMenuBarVisible()) {
->>>>>>> 348ee9af34141989cd475bf0528e3a0e34163f36
       win.hide();
     } else {
       win.show();
@@ -246,14 +210,11 @@ ipcMain.handle('new-note', async () => {
     title: 'Unsaved Changes',
     message: 'You have unsaved changes. Start a new note anyway?'
   });
-<<<<<<< HEAD
 
   return {
     confirmed: result.response === 0
   };
-=======
-  return { confirmed: result.response === 0 };
->>>>>>> 348ee9af34141989cd475bf0528e3a0e34163f36
+
 });
 
 ipcMain.handle('open-file', async () => {
@@ -286,7 +247,7 @@ ipcMain.handle('get-notes', async () => {
   return readNotes();
 });
 
-<<<<<<< HEAD
+
 // NEW: Delete a note
 ipcMain.handle('delete-note', async (event, id) => {
   const notes = readNotes();
@@ -324,67 +285,4 @@ ipcMain.handle('save-note-json', async (event, note) => {
     success: true
   };
 });
-=======
-// NEW: App Menu
-const menuTemplate = [
-  {
-    label: 'File',
-    submenu: [
-      {
-        label: 'New Note',
-        accelerator: 'CmdOrCtrl+N',
-        click: () => {
-          BrowserWindow.getFocusedWindow().webContents.send(
-            'menu-new-note'
-          );
-        }
-      },
 
-      {
-        label: 'Open File',
-        accelerator: 'CmdOrCtrl+O',
-        click: () => {
-          BrowserWindow.getFocusedWindow().webContents.send(
-            'menu-open-file'
-          );
-        }
-      },
-
-      {
-        label: 'Save',
-        accelerator: 'CmdOrCtrl+S',
-        click: () => {
-          BrowserWindow.getFocusedWindow().webContents.send(
-            'menu-save'
-          );
-        }
-      },
-
-      {
-        label: 'Save As',
-        accelerator: 'CmdOrCtrl+Shift+S',
-        click: () => {
-          BrowserWindow.getFocusedWindow().webContents.send(
-            'menu-save-as'
-          );
-        }
-      },
-
-      { type: 'separator' },
-
-      {
-        label: 'Quit',
-        accelerator: 'CmdOrCtrl+Q',
-        click: () => app.quit()
-      }
-    ]
-  }
-];
-
-// Build and set the application menu
-const menu = Menu.buildFromTemplate(menuTemplate);
-Menu.setApplicationMenu(menu);
-
-// return result.response === 0;
-// });
->>>>>>> 348ee9af34141989cd475bf0528e3a0e34163f36

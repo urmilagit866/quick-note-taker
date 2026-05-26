@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 window.addEventListener('DOMContentLoaded', async () => {
   const textarea = document.getElementById('note');
   const titleInput = document.getElementById('note-title');
@@ -8,12 +7,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   const newNoteBtn = document.getElementById('new-note');
   const noteList = document.getElementById('note-list');
   const statusEl = document.getElementById('save_status');
-=======
-window.addEventListener('DOMContentLoaded', async() => {
-    const textarea = document.getElementById('note');
-    const saveBtn = document.getElementById('save');
-    
->>>>>>> 348ee9af34141989cd475bf0528e3a0e34163f36
+
 
   // STATE
   let notes = [];
@@ -114,28 +108,6 @@ window.addEventListener('DOMContentLoaded', async() => {
     renderNoteList();
     statusEl.textContent = 'Saved ✔';
   }
-<<<<<<< HEAD
-=======
-}
-window.electronAPI.onMenuAction('menu-new-note', () => {
-    newNoteBtn.click(); // reuse the existing button logic
-});
-
-window.electronAPI.onMenuAction('menu-open-file', () => {
-    openFileBtn.click(); // reuse the existing button logic
-});
-
-window.electronAPI.onMenuAction('menu-save', () => {
-    saveBtn.click(); // reuse the existing button logic
-});
-
-window.electronAPI.onMenuAction('menu-save-as', () => {
-    saveAsBtn.click(); // reuse the existing button logic
-});
-
-});
-
->>>>>>> 348ee9af34141989cd475bf0528e3a0e34163f36
 
   // DELETE NOTE
   async function deleteNote(id) {
@@ -207,8 +179,7 @@ window.electronAPI.onMenuAction('menu-save-as', () => {
   openFileBtn.addEventListener('click', async () => {
     const result = await window.electronAPI.openFile();
 
-    if (result.success) {
-      textarea.value = result.content;
+    if (result.success) {      textarea.value = result.content;
       statusEl.textContent = `Opened: ${result.filePath}`;
     }
   });
